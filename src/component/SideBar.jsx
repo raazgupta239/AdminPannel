@@ -1,10 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './../css/componentCss/SideBar.css';
 import logo from './../images/LOGO.png';
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleLogout = () => {
     // Clear user-related data (e.g., tokens) from local storage or state
@@ -15,23 +17,38 @@ const SideBar = () => {
     navigate('/adminlogin');
   };
 
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  // Determine the active path
+  const getActiveClass = (path) => location.pathname === path ? 'active' : '';
+
   return (
     <nav className="sidebar-navbar">
       <div className="sidebar-logo-header">
-        <img src={logo} alt="RojgarNepal Logo" className="sidebar-logo" />
+        <button 
+          className="sidebar-logo-button"
+          onClick={() => navigate('/admin-user')}
+        >
+          <img src={logo} alt="RojgarNepal Logo" className="sidebar-logo" />
+        </button>
+        <button className="sidebar-menu-toggle" onClick={toggleNav}>
+          ☰
+        </button>
       </div>
-      <div className="sidebar-navigation">
+      <div className={`sidebar-navigation ${isNavOpen ? 'open' : ''}`}>
         <ul>
-          <li className="sidebar-nav-item" onClick={() => navigate('/admin')}>
+          <li className={`sidebar-nav-item ${getActiveClass('/admin-user')}`} onClick={() => navigate('/admin-user')}>
             USER STATISTICS
           </li>
-          <li className="sidebar-nav-item" onClick={() => navigate('/admin-booking')}>
+          <li className={`sidebar-nav-item ${getActiveClass('/admin-booking')}`} onClick={() => navigate('/admin-booking')}>
             BOOKINGS
           </li>
-          <li className="sidebar-nav-item" onClick={() => navigate('/jobPosts')}>
+          <li className={`sidebar-nav-item ${getActiveClass('/admin-jobPosts')}`} onClick={() => navigate('/admin-jobPosts')}>
             JOB POSTS
           </li>
-          <li className="sidebar-nav-item" onClick={() => navigate('/verifyUser')}>
+          <li className={`sidebar-nav-item ${getActiveClass('/admin-verifyUser')}`} onClick={() => navigate('/admin-verifyUser')}>
             VERIFY USER
           </li>
         </ul>

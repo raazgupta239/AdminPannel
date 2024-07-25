@@ -40,3 +40,9 @@
   margin-top: 20px;
   margin-left: 0px;
 }
+@media (max-width: 994px) {
+  .top-search-bar {
+    margin-top: 300px;
+  }
+
+}

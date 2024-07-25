@@ -290,6 +290,11 @@
     left: 4.5rem;
   }
 }
+@media (max-width: 714px) {
+  .header-container {
+    gap: 5rem; /* Increase the gap between Header and Filter */
+  }
+}
 
 @media (max-width: 680px) {
   .jobs-title {
@@ -345,4 +350,3 @@
     flex-direction: column;
   }
 }
-      

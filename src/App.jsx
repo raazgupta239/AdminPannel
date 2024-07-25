@@ -23,11 +23,13 @@ const App = () => {
       <Routes>
 
         <Route path="/" element={<AdminLogIn />} />
+        <Route path="/admin" element={<AdminLogIn />} />
+
         <Route path="/adminlogin" element={<AdminLogIn />} />
-        <Route path="/admin" element={<AdminUserStatistics />} />
-        <Route path="/jobPosts" element={<AdminJobPosts />} />
+        <Route path="/admin-user" element={<AdminUserStatistics />} />
+        <Route path="/admin-jobPosts" element={<AdminJobPosts />} />
         <Route path="/admin-booking" element={<AdminDashboard/>} />
-        <Route path="/verifyUser" element={<AdminVerifyUser/>} />
+        <Route path="/admin-verifyUser" element={<AdminVerifyUser/>} />
 
 
       </Routes>

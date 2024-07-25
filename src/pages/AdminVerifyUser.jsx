@@ -13,7 +13,7 @@ const freelancers = [
     profile: nirmalhamal,
     mail: "nirmal34@gmail.com",
     documents: {
-      nid: 'path_to_nirmalhamal_nid.jpg',
+      nid: '/home/raaz/Desktop/AdminPannel/Admin/src/pages/nirmalhamal.jpg',
       trainingCertificates: ['path_to_nirmalhamal_cert1.jpeg', 'path_to_nirmalhamal_cert2.jpeg'],
     },
   },
@@ -88,7 +88,7 @@ const AdminVerifyUser = () => {
       <TopSearchBar />  
       <div className='admin-verify-user'>
         <main className="content">
-          <Header bookings={bookings} pagename={`Verified Users: ${verifiedCount}`} />
+          <Header bookings={bookings} pagename={`Verified Users`} />
           <div className="verification-requests">
             <h2>Verification Requests:</h2>
             {requests.map((user, index) => (
