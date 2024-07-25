@@ -3,7 +3,7 @@ import Header from '../component/Header';
 import Filter from '../component/Filter';
 import './../css/componentCss/AllJobPosts.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLongArrowAltDown, faTrashCan, faMoneyBill, faClock, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faMoneyBill, faClock, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 function AllJobPosts() {
   const [bookings, setBookings] = useState([]);
@@ -125,48 +125,56 @@ function AllJobPosts() {
 
   return (
     <>
-
       <Header bookings={bookings} pagename=" Job Posts" />
       <Filter />
-    <div className="reasontodelete">
-      {jobToDelete ? (
-        <div className="delete-form">
-          <h3>Reason for deleting the job:</h3>
-          <textarea value={deleteReason} onChange={handleReasonChange} placeholder="Type your reason here..."></textarea>
-          <button onClick={handleDeleteConfirm}>Confirm Delete</button>
-          <button onClick={() => setJobToDelete(null)}>Cancel</button>
-        </div>
-      ) : (
-        <div className="adminjobs">
-          {currentJobs.map(job => (
-            <div className="job-card" key={job.id}>
-              <span className='client-initials'>{job.clientNameFirstLetter}</span>
-              <button className="admin-delete-btn" onClick={() => handleDeleteClick(job.id)}>Delete<span className='trashcan'><FontAwesomeIcon icon={faTrashCan} /></span></button>
-              <div className="jobpost-details">
-                <h3 className='jobpost-title'>{job.title}</h3> <span className="time"><FontAwesomeIcon icon={faClock} /> {job.time}</span>
-                <br /><p className="job-description">"{job.jobDescription}"</p>
-                <p className="proposals"><span className='proposal-label'>Proposals:</span> <span className='proposal-no'>{job.proposals}</span> </p>
-                <div className='pdel'>
-                  <p className="payment"><FontAwesomeIcon icon={faMoneyBill} />&nbsp;&nbsp;Nrs.{job.payment}</p>
-                  <p className="date">Date: {job.date}</p>
-                  <p className="estimated-hours">Estimated Hours: {job.estimatedHours}</p>
-                  <p className="location" title='View on Map'><FontAwesomeIcon icon={faLocationDot} /> <span className='location-details'>{job.location}</span></p>
+      <div className="reasontodelete">
+        {jobToDelete ? (
+          <div className="delete-form">
+            <h3>Reason for deleting the job:</h3>
+            <textarea 
+              value={deleteReason} 
+              onChange={handleReasonChange} 
+              placeholder="Type your reason here..."
+            ></textarea>
+            <button 
+              onClick={handleDeleteConfirm} 
+              disabled={!deleteReason.trim()}
+            >
+              Confirm Delete
+            </button>
+            <button onClick={() => setJobToDelete(null)}>Cancel</button>
+          </div>
+        ) : (
+          <div className="adminjobs">
+            {currentJobs.map(job => (
+              <div className="job-card" key={job.id}>
+                <span className='client-initials'>{job.clientNameFirstLetter}</span>
+                <button className="admin-delete-btn" onClick={() => handleDeleteClick(job.id)}>Delete<span className='trashcan'><FontAwesomeIcon icon={faTrashCan} /></span></button>
+                <div className="jobpost-details">
+                  <h3 className='jobpost-title'>{job.title}</h3> <span className="time"><FontAwesomeIcon icon={faClock} /> {job.time}</span>
+                  <br /><p className="job-description">"{job.jobDescription}"</p>
+                  <p className="proposals"><span className='proposal-label'>Proposals:</span> <span className='proposal-no'>{job.proposals}</span> </p>
+                  <div className='pdel'>
+                    <p className="payment"><FontAwesomeIcon icon={faMoneyBill} />&nbsp;&nbsp;Nrs.{job.payment}</p>
+                    <p className="date">Date: {job.date}</p>
+                    <p className="estimated-hours">Estimated Hours: {job.estimatedHours}</p>
+                    <p className="location" title='View on Map'><FontAwesomeIcon icon={faLocationDot} /> <span className='location-details'>{job.location}</span></p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
+        )}
+        <div className="adminpagination">
+          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
+          {pageNumbers.map(number => (
+            <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
+              {number}
+            </button>
           ))}
+          <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === pageNumbers.length}>{">"}</button>
         </div>
-      )}
-      <div className="adminpagination">
-        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>{"<"}</button>
-        {pageNumbers.map(number => (
-          <button key={number} onClick={() => paginate(number)} className={currentPage === number ? 'active' : ''}>
-            {number}
-          </button>
-        ))}
-        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === pageNumbers.length}>{">"}</button>
       </div>
-    </div>
     </>
   );
 }
